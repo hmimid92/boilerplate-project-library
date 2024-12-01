@@ -91,19 +91,20 @@ module.exports = function (app) {
       let bookid = req.params.id;
       let comment = req.body.comment;
       //json res format same as .get
-      let bookFound = Book.findById(bookid);
+      let bookFound;
       try {
         if(!comment) {
           res.send("missing required field comment");
          }
+         bookFound = await Book.findById(bookid);
+      } catch (error) {
+        res.send("no book exists")
+      }
       let bookUpdated = await Book.findByIdAndUpdate(bookid, {
         comments: [...bookFound.comments,comment],
         commentcount: bookFound.commentcount + 1
       }, {new: true});
         res.json(bookUpdated);
-      } catch (error) {
-        res.send("no book exists")
-      }
     })
     
     .delete(async (req, res) => {
