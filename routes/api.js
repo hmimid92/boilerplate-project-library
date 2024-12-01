@@ -91,7 +91,7 @@ module.exports = function (app) {
       let bookid = req.params.id;
       let comment = req.body.comment;
       //json res format same as .get
-      let bookFound = await Book.findById(bookid);
+      let bookFound = Book.findById(bookid);
       try {
         if(!comment) {
           res.send("missing required field comment");
