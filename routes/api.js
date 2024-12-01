@@ -108,13 +108,13 @@ module.exports = function (app) {
     
     .delete(async (req, res) => {
       let bookid = req.params.id;
-      //if successful response will be 'delete successful'
-      // await  Book.findOneAndDelete({_id: bookid}).then(deleted => {
-      //   if(deleted) {
-      //     res.send('successfully deleted');
-      //   }
-      //  }).catch(err => {
-      //   res.send(" no book exists");
-      // });
+      // if successful response will be 'delete successful'
+      await  Book.findOneAndDelete({_id: bookid}).then(deleted => {
+        if(deleted) {
+          res.send('successfully deleted');
+        }
+       }).catch(err => {
+        res.send(" no book exists");
+      });
     });
 };
