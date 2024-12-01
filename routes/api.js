@@ -55,17 +55,17 @@ module.exports = function (app) {
     
     .delete(async (req, res) => {
       // if successful response will be 'complete delete successful'
-      let listBooks = await Book.find({});
-      let id_list = listBooks.map(e => e._id)
-      try {
-        id_list.forEach( async e => {
-          await Book.findByIdAndDelete(e);
-        }
-      );
-      res.send("complete delete successful");
-      } catch (error) {
-        res.send("could not delete all items");
-      }
+      // let listBooks = await Book.find({});
+      // let id_list = listBooks.map(e => e._id)
+      // try {
+      //   id_list.forEach( async e => {
+      //     await Book.findByIdAndDelete(e);
+      //   }
+      // );
+      // res.send("complete delete successful");
+      // } catch (error) {
+      //   res.send("could not delete all items");
+      // }
     });
 
 
@@ -91,11 +91,11 @@ module.exports = function (app) {
       let bookid = req.params.id;
       let comment = req.body.comment;
       //json res format same as .get
+      let bookFound = await Book.findById(bookid);
       try {
         if(!comment) {
           res.send("missing required field comment");
          }
-      let bookFound = await Book.findById(bookid);
       let bookUpdated = await Book.findByIdAndUpdate(bookid, {
         comments: [...bookFound.comments,comment],
         commentcount: bookFound.commentcount + 1
@@ -109,12 +109,12 @@ module.exports = function (app) {
     .delete(async (req, res) => {
       let bookid = req.params.id;
       //if successful response will be 'delete successful'
-      await  Book.findOneAndDelete({_id: bookid}).then(deleted => {
-        if(deleted) {
-          res.send('successfully deleted');
-        }
-       }).catch(err => {
-        res.send(" no book exists");
-      });
+      // await  Book.findOneAndDelete({_id: bookid}).then(deleted => {
+      //   if(deleted) {
+      //     res.send('successfully deleted');
+      //   }
+      //  }).catch(err => {
+      //   res.send(" no book exists");
+      // });
     });
 };
