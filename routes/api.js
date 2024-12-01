@@ -95,9 +95,10 @@ module.exports = function (app) {
         if(!comment) {
           res.send("missing required field comment");
          }
+         let bookFound = await Book.find({_id: bookid});
          let bookUpdated = await Book.findByIdAndUpdate(bookid, {
-          comments: [...this.comments,comment],
-          commentcount: this.commentcount + 1
+          comments: [...bookFound.comments,comment],
+          commentcount: bookFound.commentcount + 1
         }, {new: true});
           res.json(bookUpdated);         
       } catch (error) {
