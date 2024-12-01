@@ -95,8 +95,8 @@ module.exports = function (app) {
         if(!comment) {
           res.send("missing required field comment");
          }
-         let bookFound = await Book.find({_id: bookid});
-         let bookUpdated = await Book.findByIdAndUpdate(bookid, {
+         let bookFound = await Book.findOne({_id: bookid});
+         let bookUpdated = await Book.findByIdAndUpdate({_id: bookid}, {
           comments: [...bookFound.comments,comment],
           commentcount: bookFound.commentcount + 1
         }, {new: true});
