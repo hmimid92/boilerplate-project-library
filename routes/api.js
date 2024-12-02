@@ -75,7 +75,7 @@ module.exports = function (app) {
     });
 
 
-
+   let count = 0;
   app.route('/api/books/:id')
     .get(async (req, res) => {
       let bookid = req.params.id;
@@ -101,12 +101,10 @@ module.exports = function (app) {
         if(!comment) {
           res.send("missing required field comment");
          }
-         const bookFound = await Book.findByIdAndUpdate({_id: bookid});
-         const book_comment = bookFound.comments;
-         const book_count = bookFound.commentcount;
+         count = count + 1;
          const bookUpdated = await Book.findByIdAndUpdate({_id: bookid}, {
-          comments: [...book_comment,comment],
-          commentcount: book_count + 1
+          comments: [].concat(comment),
+          commentcount: count
         }, {new: true});
           res.json(bookUpdated);         
       } catch (error) {
@@ -116,17 +114,17 @@ module.exports = function (app) {
     })
     
     .delete(async (req, res) => {
-    //   let bookid = req.params.id;
-    //   try {
-    //     Book.findByIdAndDelete(bookid,
-    //         (err, x) => {
-    //             if (err) console.log(err)
-    //             else {
-    //               res.send('delete successful');
-    //             }
-    //         })
-    // } catch (error) {
-    //   res.send(" no book exists");
-    // }
+      let bookid = req.params.id;
+      try {
+        Book.findByIdAndDelete(bookid,
+            (err, x) => {
+                if (err) console.log(err)
+                else {
+                  res.send('delete successful');
+                }
+            })
+    } catch (error) {
+      res.send(" no book exists");
+    }
     });
 };
