@@ -109,7 +109,7 @@ module.exports = function (app) {
           comments: [...bookFound.comments, comment],
           commentcount: bookFound.commentcount + 1
         }, {new: true});
-          res.json(bookUpdated);  
+          return res.json(bookUpdated);  
       } catch (error) {
         res.json({ error: 'could not update', '_id': bookid});
       }
