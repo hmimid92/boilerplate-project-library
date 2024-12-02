@@ -99,21 +99,16 @@ module.exports = function (app) {
       if(!comment) {
         res.json({error: "missing required field comment"});
        }
-       let bookFound;
+       
       try {
-        bookFound = await Book.findByIdAndUpdate(bookid);
-      } catch (error) {
-        res.send("no book exists");
-      }
-
-      try {
-         const bookUpdated = await Book.findByIdAndUpdate(bookid, {
+        let bookFound = await Book.findByIdAndUpdate(bookid);
+        const bookUpdated = await Book.findByIdAndUpdate(bookid, {
           comments: [...bookFound.comments.push(comment)],
           commentcount: bookFound.commentcount + 1
         }, {new: true});
-          res.json(bookUpdated);         
+          res.json(bookUpdated);  
       } catch (error) {
-        res.json({error: "could not update",_id: bookid })
+        res.send("no book exists");
       }
     })
     
@@ -124,11 +119,11 @@ module.exports = function (app) {
             (err, x) => {
                 if (err) console.log(err)
                 else {
-                  res.json({error: 'delete successful'});
+                  res.send('delete successful');
                 }
             })
     } catch (error) {
-      res.json({error: "no book exists"});
+      res.send("no book exists");
     }
     });
 };
