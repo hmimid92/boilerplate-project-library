@@ -10,8 +10,14 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+mongoose.set('strictQuery', false);
 
-mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then((ans) => {
+  console.log("Connected Successful")
+})
+.catch((err) => {
+  console.log("Error in the Connection")
+})
 
 const BookSchema = new Schema({
   comments: { type: []},
@@ -95,26 +101,32 @@ module.exports = function (app) {
         if(!comment) {
           res.send("missing required field comment");
          }
-         let bookFound = await Book.findOne({_id: bookid});
-         let bookUpdated = await Book.findByIdAndUpdate({_id: bookid}, {
-          comments: [...bookFound.comments,comment],
-          commentcount: bookFound.commentcount + 1
+         const bookFound = await Book.findByIdAndUpdate({_id: bookid});
+         const book_comment = bookFound.comments;
+         const book_count = bookFound.commentcount;
+         const bookUpdated = await Book.findByIdAndUpdate({_id: bookid}, {
+          comments: [...book_comment,comment],
+          commentcount: book_count + 1
         }, {new: true});
           res.json(bookUpdated);         
       } catch (error) {
+        console.log("good error")
         res.send("no book exists")
       }
     })
     
     .delete(async (req, res) => {
       let bookid = req.params.id;
-      // if successful response will be 'delete successful'
-      await  Book.findByIdAndDelete({_id: bookid}).then(deleted => {
-        if(deleted) {
-          res.send('successfully deleted');
-        }
-       }).catch(err => {
-        res.send(" no book exists");
-      });
+      try {
+        Book.findByIdAndDelete(bookid,
+            (err, x) => {
+                if (err) console.log(err)
+                else {
+                  res.send('delete successful');
+                }
+            })
+    } catch (error) {
+      res.send(" no book exists");
+    }
     });
 };
