@@ -75,7 +75,7 @@ module.exports = function (app) {
     });
 
 
-   let count = 0;
+   let count = 0, arrayComment = [];
   app.route('/api/books/:id')
     .get(async (req, res) => {
       let bookid = req.params.id;
@@ -102,8 +102,9 @@ module.exports = function (app) {
           res.send("missing required field comment");
          }
          count = count + 1;
+         arrayComment.push(comment)
          const bookUpdated = await Book.findByIdAndUpdate({_id: bookid}, {
-          comments: [].concat(comment),
+          comments: arrayComment,
           commentcount: count
         }, {new: true});
           res.json(bookUpdated);         
