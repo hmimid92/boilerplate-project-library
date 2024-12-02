@@ -19,7 +19,9 @@ const { Schema } = mongoose;
 // })
 
 const connectDB = async () => {
-  await mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+  await mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(resu => {
+    console.log("successfully connected");
+  })
       .catch(function (error) {
           console.log(`Unable to connect to the Mongo db  ${error} `);
       });
