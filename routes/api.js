@@ -116,17 +116,17 @@ module.exports = function (app) {
     })
     
     .delete(async (req, res) => {
-      let bookid = req.params.id;
-      try {
-        Book.findByIdAndDelete(bookid,
-            (err, x) => {
-                if (err) console.log(err)
-                else {
-                  res.send('delete successful');
-                }
-            })
-    } catch (error) {
-      res.send(" no book exists");
-    }
+    //   let bookid = req.params.id;
+    //   try {
+    //     Book.findByIdAndDelete(bookid,
+    //         (err, x) => {
+    //             if (err) console.log(err)
+    //             else {
+    //               res.send('delete successful');
+    //             }
+    //         })
+    // } catch (error) {
+    //   res.send(" no book exists");
+    // }
     });
 };
