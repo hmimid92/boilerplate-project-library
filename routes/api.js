@@ -6,7 +6,7 @@
 *       
 */
 
-// 'use strict';
+'use strict';
 require('dotenv').config();
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
@@ -60,17 +60,17 @@ module.exports = function (app) {
     
     .delete(async (req, res) => {
       // if successful response will be 'complete delete successful'
-      // let listBooks = await Book.find({});
-      // let id_list = listBooks.map(e => e._id)
-      // try {
-      //   id_list.forEach( async e => {
-      //     await Book.findByIdAndDelete(e);
-      //   }
-      // );
-      // res.send("complete delete successful");
-      // } catch (error) {
-      //   res.send("could not delete all items");
-      // }
+      let listBooks = await Book.find({});
+      let id_list = listBooks.map(e => e._id)
+      try {
+        id_list.forEach( async e => {
+          await Book.findByIdAndDelete(e);
+        }
+      );
+      res.send("complete delete successful");
+      } catch (error) {
+        res.send("could not delete all items");
+      }
     });
 
 
