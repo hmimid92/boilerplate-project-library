@@ -97,13 +97,13 @@ module.exports = function (app) {
       let comment = req.body.comment;
       //json res format same as .get
       if(!comment) {
-        res.send("missing required field comment");
+        res.json({error: "missing required field comment"});
        }
        let bookFound;
       try {
         bookFound = await Book.findByIdAndUpdate(bookid);
       } catch (error) {
-        res.send("no book exists")
+        res.json({error: "no book exists"})
       }
 
       try {
@@ -113,7 +113,7 @@ module.exports = function (app) {
         }, {new: true});
           res.json(bookUpdated);         
       } catch (error) {
-        res.send("could not update")
+        res.json({error: "could not update"})
       }
     })
     
@@ -124,11 +124,11 @@ module.exports = function (app) {
             (err, x) => {
                 if (err) console.log(err)
                 else {
-                  res.send('delete successful');
+                  res.json({error: 'delete successful'});
                 }
             })
     } catch (error) {
-      res.send(" no book exists");
+      res.json({error: "no book exists"});
     }
     });
 };
