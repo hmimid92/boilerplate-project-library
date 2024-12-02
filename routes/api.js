@@ -103,7 +103,7 @@ module.exports = function (app) {
       try {
         bookFound = await Book.findByIdAndUpdate(bookid);
       } catch (error) {
-        res.json({error: "no book exists"})
+        res.send("no book exists");
       }
 
       try {
@@ -113,7 +113,7 @@ module.exports = function (app) {
         }, {new: true});
           res.json(bookUpdated);         
       } catch (error) {
-        res.json({error: "could not update"})
+        res.json({error: "could not update",_id: bookid })
       }
     })
     
