@@ -102,7 +102,7 @@ module.exports = function (app) {
       try {
         let bookFound = await Book.findById(bookid);
         const bookUpdated = await Book.findByIdAndUpdate(bookid, {
-          comments: [...bookFound.comments.push(comment)],
+          comments: [...bookFound.comments, comment],
           commentcount: bookFound.commentcount + 1
         }, {new: true});
           res.json(bookUpdated);  
