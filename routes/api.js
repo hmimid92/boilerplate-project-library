@@ -101,18 +101,14 @@ module.exports = function (app) {
        }
        
       try {
-        let bookFound = await Book.findById(bookid);
+        let bookFound = await Book.findOne({_id: bookid});
         const bookUpdated = await Book.findByIdAndUpdate(bookid, {
           comments: [...bookFound.comments, comment],
           commentcount: bookFound.commentcount + 1
         }, {new: true});
-        if(!bookUpdated) {
-          res.send("no book exists")
-        } else {
           res.json(bookUpdated);
-        }
       } catch (error) {
-        res.json({ error: 'could not update', '_id': bookid});
+        res.send("no book exists")
       }
     })
     
