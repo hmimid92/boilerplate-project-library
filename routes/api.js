@@ -6,11 +6,10 @@
 *       
 */
 
-'use strict';
+// 'use strict';
 require('dotenv').config();
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-mongoose.set('strictQuery', false);
 
 mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then((ans) => {
   console.log("Connected Successful")
@@ -20,9 +19,9 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: tr
 })
 
 const BookSchema = new Schema({
-  comments: { type: [String]},
+  comments: [String],
   title: { required: true, type: String},
-  commentcount: { type: Number}
+  commentcount: Number
 });
 
 const Book = mongoose.model("Book", BookSchema);
