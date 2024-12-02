@@ -93,26 +93,26 @@ module.exports = function (app) {
     })
     
     .post(async (req, res) => {
-      // let bookid = req.params.id;
-      // let comment = req.body.comment;
-      // //json res format same as .get
-      // if(!comment) {
-      //   res.json({error: "missing required field comment"});
-      //  }
+      let bookid = req.params.id;
+      let comment = req.body.comment;
+      //json res format same as .get
+      if(!comment) {
+        res.json({error: "missing required field comment"});
+       }
        
-      // try {
-      //   let bookFound = await Book.findById(bookid);
-      //   if(!bookFound) {
-      //     res.send("no book exists")
-      //   }
-      //   const bookUpdated = await Book.findByIdAndUpdate(bookid, {
-      //     comments: [...bookFound.comments, comment],
-      //     commentcount: bookFound.commentcount + 1
-      //   }, {new: true});
-      //     res.json(bookUpdated);  
-      // } catch (error) {
-      //   res.send(error);
-      // }
+      try {
+        let bookFound = await Book.findById(bookid);
+        if(!bookFound) {
+          res.send("no book exists")
+         }
+        const bookUpdated = await Book.findByIdAndUpdate(bookid, {
+          comments: [...bookFound.comments, comment],
+          commentcount: bookFound.commentcount + 1
+        }, {new: true});
+          res.json(bookUpdated);  
+      } catch (error) {
+        res.json({ error: 'could not update', '_id': bookid});
+      }
     })
     
     .delete(async (req, res) => {
