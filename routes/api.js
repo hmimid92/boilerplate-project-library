@@ -20,7 +20,7 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: tr
 })
 
 const BookSchema = new Schema({
-  comments: { type: []},
+  comments: { type: [String]},
   title: { required: true, type: String},
   commentcount: { type: Number}
 });
@@ -75,7 +75,6 @@ module.exports = function (app) {
     });
 
 
-   let count = 0, arrayComment = [];
   app.route('/api/books/:id')
     .get(async (req, res) => {
       let bookid = req.params.id;
@@ -97,20 +96,24 @@ module.exports = function (app) {
       let bookid = req.params.id;
       let comment = req.body.comment;
       //json res format same as .get
+      if(!comment) {
+        res.send("missing required field comment");
+       }
+       let bookFound;
       try {
-        if(!comment) {
-          res.send("missing required field comment");
-         }
-         count = count + 1;
-         arrayComment.push(comment)
-         const bookUpdated = await Book.findByIdAndUpdate({_id: bookid}, {
-          comments: arrayComment,
-          commentcount: count
+        bookFound = await Book.findByIdAndUpdate(bookid);
+      } catch (error) {
+        res.send("no book exists")
+      }
+
+      try {
+         const bookUpdated = await Book.findByIdAndUpdate(bookid, {
+          comments: [...bookFound.comments.push(comment)],
+          commentcount: bookFound.commentcount + 1
         }, {new: true});
           res.json(bookUpdated);         
       } catch (error) {
-        console.log("good error")
-        res.send("no book exists")
+        res.send("could not update")
       }
     })
     
