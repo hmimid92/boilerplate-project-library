@@ -11,12 +11,23 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then((ans) => {
-  console.log("Connected Successful")
-})
-.catch((err) => {
-  console.log("Error in the Connection")
-})
+// mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then((ans) => {
+//   console.log("Connected Successful")
+// })
+// .catch((err) => {
+//   console.log("Error in the Connection")
+// })
+
+const connectDB = async () => {
+  await mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+      .catch(function (error) {
+          console.log(`Unable to connect to the Mongo db  ${error} `);
+      });
+};
+
+connectDB();
+
+
 
 const BookSchema = new Schema({
   comments: [String],
@@ -97,7 +108,7 @@ module.exports = function (app) {
       let comment = req.body.comment;
       //json res format same as .get
       if(!comment) {
-        res.json({error: "missing required field comment"});
+        res.send("missing required field comment");
        }
        
       try {
