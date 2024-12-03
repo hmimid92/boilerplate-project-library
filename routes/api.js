@@ -11,15 +11,16 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-// const connectDB = async () => {
- mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(resu => {
+const connectDB = async () => {
+ await mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(resu => {
     console.log("successfully connected");
   })
       .catch(function (error) {
           console.log(`Unable to connect to the Mongo db  ${error} `);
       });
+    }
 
-// connectDB();
+connectDB();
 
 
 
