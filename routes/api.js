@@ -11,23 +11,15 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-// mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then((ans) => {
-//   console.log("Connected Successful")
-// })
-// .catch((err) => {
-//   console.log("Error in the Connection")
-// })
-
-const connectDB = async () => {
-  await mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(resu => {
+// const connectDB = async () => {
+ mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(resu => {
     console.log("successfully connected");
   })
       .catch(function (error) {
           console.log(`Unable to connect to the Mongo db  ${error} `);
       });
-};
 
-connectDB();
+// connectDB();
 
 
 
@@ -90,7 +82,6 @@ module.exports = function (app) {
   app.route('/api/books/:id')
     .get(async (req, res) => {
       let bookid = req.params.id;
-      console.log("get;",req.body)
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
       try {
         let bookFound = await Book.findById(bookid);
