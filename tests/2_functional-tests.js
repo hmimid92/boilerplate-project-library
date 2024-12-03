@@ -112,7 +112,7 @@ suite('Functional Tests', async () => {
             chai
             .request(server)
             .keepOpen()
-            .get('/api/books/674ef547e4cb1ba17bd2f820')
+            .get('/api/books/674e0a4db3c2fecd4326cb55')
             .end(function(err, res){
               assert.equal(res.status, 200);
               assert.isObject(res.body, 'response should be an object');
@@ -133,7 +133,7 @@ suite('Functional Tests', async () => {
             chai
               .request(server)
               .keepOpen()
-              .post('/api/books/674f48af05bdc24732133048')
+              .post('/api/books/674e0a4db3c2fecd4326cb55')
               .send({
                 "comment": "great"
               })
@@ -152,7 +152,7 @@ suite('Functional Tests', async () => {
             chai
               .request(server)
               .keepOpen()
-              .post('/api/books/674f48af05bdc24732133048')
+              .post('/api/books/674e0a4db3c2fecd4326cb55')
               .send({
                 "comment": ""
               })
