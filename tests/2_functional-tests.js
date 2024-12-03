@@ -13,13 +13,13 @@ const server = require('../server');
 
 chai.use(chaiHttp);
 
-suite('Functional Tests', async () => {
+suite('Functional Tests', function() {
 
   /*
   * ----[EXAMPLE TEST]----
   * Each test should completely test the response of the API end-point including response status code!
   */
-      test('#example Test GET /api/books', function(done){
+      test('#example Test GET /api/books', async (done) => {
            chai
           .request(server)
           .keepOpen() 
@@ -32,7 +32,7 @@ suite('Functional Tests', async () => {
             assert.property(res.body[0], '_id', 'Books in array should contain _id');
             done();
           });
-      });
+      }).timeout(20000);
       /*
       * ----[END of EXAMPLE TEST]----
       */
@@ -42,7 +42,7 @@ suite('Functional Tests', async () => {
 
         suite('POST /api/books with title => create book object/expect book object', function() {
           
-          test('Test POST /api/books with title', function(done) {
+          test('Test POST /api/books with title', async (done) => {
           chai
           .request(server)
           .keepOpen()
@@ -57,9 +57,9 @@ suite('Functional Tests', async () => {
             assert.property(res.body, '_id', 'response object should contain _id property');
             done();
           });
-          });
+          }).timeout(15000);
           
-          test('Test POST /api/books with no title given', function(done) {
+          test('Test POST /api/books with no title given', async (done) => {
             chai
           .request(server)
           .keepOpen()
@@ -72,8 +72,7 @@ suite('Functional Tests', async () => {
             assert.isString(res.text, 'response should be a string');
             done();
           });
-          });
-          
+          }).timeout(20000);
         });
 
 
@@ -215,4 +214,4 @@ suite('Functional Tests', async () => {
 
   });
 
-}).timeout(20000);
+});
