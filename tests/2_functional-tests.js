@@ -188,7 +188,7 @@ suite('Functional Tests', async () => {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/674dfc0041b98c604c48a918')
+        .delete('/api/books/674dfc0241b98c604c48a91f')
         .end(function(err, res){
           console.log(res.text)
           assert.equal(res.status, 200);
