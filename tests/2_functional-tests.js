@@ -168,7 +168,7 @@ suite('Functional Tests', async () => {
             chai
             .request(server)
             .keepOpen()
-            .post('/api/books/674f48af05bdc28732153048')
+            .post('/api/books/674f48af05bdc28732193048')
             .send({
               "comment": "good"
             })
@@ -188,7 +188,7 @@ suite('Functional Tests', async () => {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/674e0a4db3c2fecd4326cb55')
+        .delete('/api/books/674f7f5018eeb1510989f893')
         .end(function(err, res){
           console.log(res.text)
           assert.equal(res.status, 200);
