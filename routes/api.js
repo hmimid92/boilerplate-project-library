@@ -106,7 +106,6 @@ module.exports = function (app) {
        }
        
         let bookFound = await Book.findOne({_id: bookid});
-        let bookUpdated;
         if(!bookFound) {
           res.send("no book exists");
         } else {
@@ -115,7 +114,7 @@ module.exports = function (app) {
             commentcount: bookFound.commentcount + 1
           }, {new: true}).then(updated => {
             if(updated) {
-              res.json(bookUpdated);
+              res.json(updated);
             } else {
               res.sned("no book exists");
             }
