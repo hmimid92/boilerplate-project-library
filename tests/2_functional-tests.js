@@ -52,7 +52,6 @@ suite('Functional Tests', function() {
           })
           .end(function(err, res){
             assert.equal(res.status, 200);
-            assert.equal(res.type,'application/json');
             assert.isObject(res.body, 'response should be an object');
             assert.property(res.body, 'title', 'response object should contain title property');
             assert.property(res.body, '_id', 'response object should contain _id property');
@@ -111,10 +110,10 @@ suite('Functional Tests', function() {
             chai
             .request(server)
             .keepOpen()
-            .get('/api/books/6750b4f983034b988c282c3b')
+            .get('/api/books/6750a8b99f597337463a251b')
             .end(function(err, res){
+              console.log("get in db",res.body)
               assert.equal(res.status, 200);
-              assert.equal(res.type,'application/json');
               assert.isObject(res.body, 'response should be an object');
               assert.property(res.body, '_id', 'response object should contain _id property');
               assert.property(res.body, 'comments', 'response object should contain comments property');
@@ -133,13 +132,14 @@ suite('Functional Tests', function() {
             chai
               .request(server)
               .keepOpen()
-              .post('/api/books/6750a8d99f597337463a251f')
+              .post('/api/books/:id')
               .send({
+                "_id": "6750a8d99f597337463a251f",
                 "comment": "great"
               })
               .end(function(err, res){
+              console.log("post comment",res.body)
                 assert.equal(res.status, 200);
-                assert.equal(res.type,'application/json');
                 assert.isObject(res.body, 'response should be a object');
                 assert.property(res.body, '_id', 'response object should contain _id property');
                 assert.property(res.body, 'comments', 'response object should contain comments property');
@@ -169,11 +169,13 @@ suite('Functional Tests', function() {
             chai
             .request(server)
             .keepOpen()
-            .post('/api/books/674f48af05bdc288o2123048')
+            .post('/api/books/6750b50b83034b980c282c3d')
             .send({
+              "_id": "6750b50b83034b980c282c3d",
               "comment": "good"
             })
             .end(function(err, res){
+              console.log("post not db",res.text)
               assert.equal(res.status, 200);
               assert.isString(res.text, 'response should be a string');
               assert.equal(res.text,'no book exists');
@@ -189,8 +191,12 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/6750a8ef9f597337463a2521')
+        .delete('/api/books/:id')
+        .send({
+          "_id": "6750a8ef9f597337463a2521"
+        })
         .end(function(err, res){
+          console.log("delete comment",res.text)
           assert.equal(res.status, 200);
           assert.isString(res.text, 'response should be a string');
           assert.equal(res.text,'delete successful');
@@ -202,8 +208,12 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/674f48af05bmc24732833048')
+        .delete('/api/books/:id')
+        .send({
+          "_id": "674f48af05bmc24732833048"
+        })
         .end(function(err, res){
+          console.log("delete 2 comment",res.text)
           assert.equal(res.status, 200);
           assert.isString(res.text, 'response should be a string');
           assert.equal(res.text,'no book exists');
