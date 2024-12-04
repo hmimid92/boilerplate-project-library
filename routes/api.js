@@ -115,6 +115,7 @@ module.exports = function (app) {
           }, {new: true}).then(updated => {
             if(updated) {
               res.json(updated);
+              return;
             } else {
               res.send("no book exists");
             }
