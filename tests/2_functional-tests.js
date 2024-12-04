@@ -110,7 +110,7 @@ suite('Functional Tests', function() {
             chai
             .request(server)
             .keepOpen()
-            .get('/api/books/6750c7c6c41e309b76bbf54c')
+            .get('/api/books/6750c930a1a7f05f5af043b9')
             .end(function(err, res){
               assert.equal(res.status, 200);
               assert.isObject(res.body, 'response should be an object');
@@ -131,7 +131,7 @@ suite('Functional Tests', function() {
             chai
               .request(server)
               .keepOpen()
-              .post('/api/books/6750c7c6c41e309b76bbf54c')
+              .post('/api/books/6750c930a1a7f05f5af043b9')
               .send({
                 "comment": "good"
               })
@@ -150,7 +150,7 @@ suite('Functional Tests', function() {
             chai
               .request(server)
               .keepOpen()
-              .post('/api/books/6750c7c6c41e309b76bbf54c')
+              .post('/api/books/6750c930a1a7f05f5af043b9')
               .send({
                 "comment": ""
               })
@@ -187,7 +187,7 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/6750c7d5c41e309b76bbf54e')
+        .delete('/api/books/6750c930a1a7f05f5af043b9')
         .send({
           "_id": "6750c7d5c41e309b76bbf54e"
         })
@@ -203,9 +203,9 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/6750c7d5c41e309776bbf54e')
+        .delete('/api/books/6750c930a1a7f05f5af843b9')
         .send({
-          "_id": "6750c7d5c41e309776bbf54e"
+          "_id": "6750c930a1a7f05f5af843b9"
         })
         .end(function(err, res){
           assert.equal(res.status, 200);
