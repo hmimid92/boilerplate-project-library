@@ -111,7 +111,7 @@ suite('Functional Tests', function() {
             chai
             .request(server)
             .keepOpen()
-            .get('/api/books/674e0a4db3c2fecd4326cb55')
+            .get('/api/books/6750a8d99f597337463a251f')
             .end(function(err, res){
               assert.equal(res.status, 200);
               assert.isObject(res.body, 'response should be an object');
@@ -132,7 +132,7 @@ suite('Functional Tests', function() {
             chai
               .request(server)
               .keepOpen()
-              .post('/api/books/6750a87e8ed2e384f82ee643')
+              .post('/api/books/6750a8d99f597337463a251f')
               .send({
                 "comment": "great"
               })
@@ -151,7 +151,7 @@ suite('Functional Tests', function() {
             chai
               .request(server)
               .keepOpen()
-              .post('/api/books/674e0a4db3c2fecd4326cb55')
+              .post('/api/books/6750a8d99f597337463a251f')
               .send({
                 "comment": ""
               })
@@ -187,12 +187,8 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/:id')
-        .send({
-          _id: "6750a8b99f597337463a251b"
-        })
+        .delete('/api/books/6750a8c99f597337463a251d')
         .end(function(err, res){
-          console.log(res.text)
           assert.equal(res.status, 200);
           assert.isString(res.text, 'response should be a string');
           assert.equal(res.text,'delete successful');
@@ -207,8 +203,8 @@ suite('Functional Tests', function() {
         .delete('/api/books/674f48af05bmc24732833048')
         .end(function(err, res){
           assert.equal(res.status, 200);
-          assert.isString(res.body.error, 'response should be a string');
-          assert.equal(res.body.error,'could not delete');
+          assert.isString(res.text, 'response should be a string');
+          assert.equal(res.text,'could not delete');
           done();
         });
       });

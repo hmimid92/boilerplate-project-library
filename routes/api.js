@@ -126,7 +126,7 @@ module.exports = function (app) {
         res.send("no book exists");
       }
      }).catch(err => {
-      res.json({ error: 'could not delete', '_id': bookid});
+      res.send('could not delete');
     });
     });
 };
