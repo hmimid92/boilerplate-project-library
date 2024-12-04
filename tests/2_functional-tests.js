@@ -187,7 +187,10 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/6750a8c99f597337463a251d')
+        .delete('/api/books/:id')
+        .send({
+          _id: "6750a8c99f597337463a251d"
+        })
         .end(function(err, res){
           assert.equal(res.status, 200);
           assert.isString(res.text, 'response should be a string');
