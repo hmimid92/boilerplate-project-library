@@ -99,7 +99,7 @@ suite('Functional Tests', function() {
             chai
             .request(server)
             .keepOpen()
-            .get('/api/books/6750a87e8ed2e384f82ee643')
+            .get('/api/books/6750a8b99f597337463a251b')
             .end(function(err, res){
               assert.equal(res.status, 200);
               assert.isString(res.text, 'response should be a string');
@@ -187,7 +187,10 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/6750a87e8ed2e384f82ee643')
+        .delete('/api/books/:id')
+        .send({
+          _id: "6750a8b99f597337463a251b"
+        })
         .end(function(err, res){
           console.log(res.text)
           assert.equal(res.status, 200);
