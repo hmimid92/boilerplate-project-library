@@ -116,7 +116,7 @@ module.exports = function (app) {
             if(updated) {
               res.json(updated);
             } else {
-              res.sned("no book exists");
+              res.send("no book exists");
             }
           });
         }
