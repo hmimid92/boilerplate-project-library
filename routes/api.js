@@ -113,11 +113,8 @@ module.exports = function (app) {
             comments: [...bookFound.comments, comment],
             commentcount: bookFound.commentcount + 1
           }, {new: true});
-          if(!bookUpdated) {
-            res.send("could not update");
-          } else {
             res.json(bookUpdated);
-          }
+            return;
         }
     })
     
