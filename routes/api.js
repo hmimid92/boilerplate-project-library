@@ -106,16 +106,18 @@ module.exports = function (app) {
        }
        
         let bookFound = await Book.findOne({_id: bookid});
+        let bookUpdated;
         if(!bookFound) {
           res.send("no book exists")
         } else {
-          const bookUpdated = await Book.findByIdAndUpdate(bookid, {
+           bookUpdated = await Book.findByIdAndUpdate(bookid, {
             comments: [...bookFound.comments, comment],
             commentcount: bookFound.commentcount + 1
           }, {new: true});
-            res.json(bookUpdated);
             return;
         }
+        res.json(bookUpdated);
+
     })
     
     .delete(async (req, res) => {
