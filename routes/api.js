@@ -112,9 +112,9 @@ module.exports = function (app) {
           commentcount: bookFound.commentcount + 1
         }, {new: true});
           res.json(bookUpdated);
-          return;
       } catch (error) {
         res.send("no book exists")
+        return;
       }
     })
     
