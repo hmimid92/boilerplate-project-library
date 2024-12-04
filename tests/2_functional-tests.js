@@ -187,7 +187,7 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/:id')
+        .delete('/api/books/6750a8c99f597337463a251d')
         .send({
           "_id": "6750a8c99f597337463a251d"
         })
