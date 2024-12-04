@@ -52,6 +52,7 @@ suite('Functional Tests', function() {
           })
           .end(function(err, res){
             assert.equal(res.status, 200);
+            assert.equal(res.type,'application/json');
             assert.isObject(res.body, 'response should be an object');
             assert.property(res.body, 'title', 'response object should contain title property');
             assert.property(res.body, '_id', 'response object should contain _id property');
@@ -89,7 +90,6 @@ suite('Functional Tests', function() {
             done();
           });
           });      
-          
         });
 
 
@@ -111,9 +111,10 @@ suite('Functional Tests', function() {
             chai
             .request(server)
             .keepOpen()
-            .get('/api/books/6750a8d99f597337463a251f')
+            .get('/api/books/6750b4f983034b988c282c3b')
             .end(function(err, res){
               assert.equal(res.status, 200);
+              assert.equal(res.type,'application/json');
               assert.isObject(res.body, 'response should be an object');
               assert.property(res.body, '_id', 'response object should contain _id property');
               assert.property(res.body, 'comments', 'response object should contain comments property');
@@ -138,6 +139,7 @@ suite('Functional Tests', function() {
               })
               .end(function(err, res){
                 assert.equal(res.status, 200);
+                assert.equal(res.type,'application/json');
                 assert.isObject(res.body, 'response should be a object');
                 assert.property(res.body, '_id', 'response object should contain _id property');
                 assert.property(res.body, 'comments', 'response object should contain comments property');
@@ -167,7 +169,7 @@ suite('Functional Tests', function() {
             chai
             .request(server)
             .keepOpen()
-            .post('/api/books/674f48af05bdc287o2123048')
+            .post('/api/books/674f48af05bdc288o2123048')
             .send({
               "comment": "good"
             })
@@ -187,10 +189,7 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/6750b4eb83034b988c282c39')
-        .send({
-          "_id": "6750b4eb83034b988c282c39"
-        })
+        .delete('/api/books/6750a8ef9f597337463a2521')
         .end(function(err, res){
           assert.equal(res.status, 200);
           assert.isString(res.text, 'response should be a string');
@@ -211,9 +210,6 @@ suite('Functional Tests', function() {
           done();
         });
       });
-
     });
-
   });
-
 });
