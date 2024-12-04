@@ -97,7 +97,7 @@ module.exports = function (app) {
       }
     })
     
-    .post(async (req, res) => {
+    .post(async (req, res,next) => {
       let bookid = req.params.id;
       let comment = req.body.comment;
       //json res format same as .get
@@ -108,19 +108,19 @@ module.exports = function (app) {
         let bookFound = await Book.findOne({_id: bookid});
         if(!bookFound) {
           res.send("no book exists");
-        } else {
+        }
            await Book.findByIdAndUpdate(bookid, {
             comments: [...bookFound.comments, comment],
             commentcount: bookFound.commentcount + 1
           }, {new: true}).then(updated => {
             if(updated) {
               res.json(updated);
-              return;
             } else {
               res.send("no book exists");
             }
+          }).catch(err => {
+            next(err);
           });
-        }
     })
     
     .delete(async (req, res) => {
