@@ -113,8 +113,7 @@ module.exports = function (app) {
         }, {new: true});
           res.json(bookUpdated);
       } catch (error) {
-        res.send("no book exists")
-        return;
+        return res.send("no book exists")
       }
     })
     
