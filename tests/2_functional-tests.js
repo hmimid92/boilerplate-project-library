@@ -99,7 +99,7 @@ suite('Functional Tests', function() {
             chai
             .request(server)
             .keepOpen()
-            .get('/api/books/674ef547e4cb1ba19bd2f820')
+            .get('/api/books/6750a87e8ed2e384f82ee643')
             .end(function(err, res){
               assert.equal(res.status, 200);
               assert.isString(res.text, 'response should be a string');
@@ -132,7 +132,7 @@ suite('Functional Tests', function() {
             chai
               .request(server)
               .keepOpen()
-              .post('/api/books/674e0a4db3c2fecd4326cb55')
+              .post('/api/books/6750a87e8ed2e384f82ee643')
               .send({
                 "comment": "great"
               })
@@ -167,7 +167,7 @@ suite('Functional Tests', function() {
             chai
             .request(server)
             .keepOpen()
-            .post('/api/books/674f48af05bdc28732193048')
+            .post('/api/books/674f48af05bdc287o2123048')
             .send({
               "comment": "good"
             })
@@ -187,7 +187,7 @@ suite('Functional Tests', function() {
         chai
         .request(server)
         .keepOpen()
-        .delete('/api/books/674f7f6418eeb1510989f89b')
+        .delete('/api/books/6750a87e8ed2e384f82ee643')
         .end(function(err, res){
           console.log(res.text)
           assert.equal(res.status, 200);
