@@ -119,7 +119,7 @@ module.exports = function (app) {
     
     .delete(async (req, res) => {
       let bookid = req.params.id;
-    await  Book.findOneAndDelete({_id: bookid}).then(deleted => {
+    await  Book.findByIdAndDelete({_id: bookid}).then(deleted => {
       if(deleted) {
         res.send('delete successful');
       } else {
