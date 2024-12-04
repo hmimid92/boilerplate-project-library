@@ -105,16 +105,16 @@ module.exports = function (app) {
         res.send("missing required field comment");
        }
        
-      try {
         let bookFound = await Book.findOne({_id: bookid});
-        const bookUpdated = await Book.findByIdAndUpdate(bookid, {
-          comments: [...bookFound.comments, comment],
-          commentcount: bookFound.commentcount + 1
-        }, {new: true});
-          res.json(bookUpdated);
-      } catch (error) {
-        return res.send("no book exists")
-      }
+        if(!bookFound) {
+          res.send("no book exists")
+        } else {
+          const bookUpdated = await Book.findByIdAndUpdate(bookid, {
+            comments: [...bookFound.comments, comment],
+            commentcount: bookFound.commentcount + 1
+          }, {new: true});
+            res.json(bookUpdated);
+        }
     })
     
     .delete(async (req, res) => {
