@@ -127,11 +127,11 @@ module.exports = function (app) {
     
     .delete(async (req, res) => {
       let bookid = req.params.id;
-      try{
-        await  Book.findByIdAndDelete({_id: bookid});
-        res.send('delete successful');
-      } catch(err) {
-        res.send('no book exists');
-      }
+        let deleted = await  Book.findByIdAndDelete(bookid);
+         if(deleted) {
+          res.send('delete successful');
+         } else {
+          res.send('no book exists');
+         }
     });
 };
